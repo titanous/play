@@ -24,9 +24,6 @@ module Play
 
     # The last time a song was played
     attr_accessor :last_played
-    
-    # Duration in seconds, including fractions
-    attr_accessor :duration
 
     # Initializes a new Song.
     #
@@ -38,18 +35,16 @@ module Play
     def initialize(options)
       if options.kind_of?(String)
         song = Song.find(options)
-        @id       = song.id
-        @name     = song.name
-        @artist   = song.artist
-        @album    = song.album
-        @duration = song.duration
+        @id     = song.id
+        @name   = song.name
+        @artist = song.artist
+        @album  = song.album
       else
         @id     = options[:id]
         @name   = options[:name]
         @artist = options[:artist]
         @album  = options[:album]
         @last_played = options[:last_played]
-        @duration = options[:duration]
       end
     end
 
@@ -62,8 +57,7 @@ module Play
       new :id     => record.persistent_ID.get,
           :name   => record.name.get,
           :artist => record.artist.get,
-          :album  => record.album.get,
-          :duration => record.duration.get
+          :album  => record.album.get
     end
 
     # Finds a song in the database.
@@ -168,7 +162,6 @@ module Play
         :starred => starred || false,
         :queued  => queued?,
         :last_played => last_played_iso8601,
-        :duration => duration
       }
     end
 

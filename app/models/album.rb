@@ -44,7 +44,7 @@ module Play
     def zipped!
       return if File.exist?(zip_path)
       FileUtils.mkdir_p "/tmp/play-zips"
-      system 'zip', '-0rjq', zip_path, path
+      system 'tar', '-cf', zip_path, '-C', File.expand_path('..',path), File.basename(path)
     end
 
     # The name of the zipfile.

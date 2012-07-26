@@ -39,7 +39,7 @@ module Play
     post '/upload' do
       params[:files].each do |file|
         tmpfile = file[:tempfile]
-        name    = file[:filename].chomp.delete("\000")
+        name    = file[:filename].chomp
 
         file_with_name = File.join("/tmp", name)
         system "mv", tmpfile.path, file_with_name
