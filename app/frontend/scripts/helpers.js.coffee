@@ -12,6 +12,7 @@ play.updateSongs = (path, method) ->
     url: path,
     success: (response) ->
       list = listFromJson(response)
+      play.playing = list.songs?
       songs = Mustache.to_html(templates.list,list,templates)
       $('#songs').html(songs)
       page = path.match(/[(\w)]+/)[0]
@@ -103,6 +104,7 @@ play.spin = (display) ->
 #
 # Returns a List of Songs.
 play.listFromJson = (json) ->
+  json = [] unless json?
   songs = json.songs.map (song) ->
     songFromJson(song)
   new List(songs)
